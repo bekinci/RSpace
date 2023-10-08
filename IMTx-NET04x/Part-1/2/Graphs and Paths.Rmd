@@ -1,0 +1,122 @@
+---
+title: "1.2. Graphs and Paths"
+author: "Baran Ekinci"
+date: "2023-10-08"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Basic definitions
+
+Graph theory is probably one of the most common sub-fields of discrete mathematics. Graphs are mathematical structures that are used to represent the relationships between objects.
+
+Mathematically, a graph is composed of a finite set of vertices, , and a set of edges, . We can therefore refer to a graph as a couple  composed of  and . A graph is often depicted using circles for vertices and lines for edges.
+
+Some examples: Graphs can be used to represent relationships between family members in a family tree, in which case members would be represented as vertices and their relationships as edges, or, similarly, to represent molecule interactions in a biological organism, neural networks in the brain, hyperlinks between websites, or, simply, a maze, in which cells can be represented as vertices and adjacent cells not separated by a wall can be linked with edges.
+
+There are multiple ways to define graphs. In the simplest case, edges convey information about which pairs of vertices are connected and which are not. This means that  becomes a set of pairs of vertices. A pair  is an unordered set that contains two distinct elements,  and . Considering that they're unordered, the pairs  and  are identical.
+
+Here is an example of a graph:
+
+```{r 1}
+
+```
+
+Here, the set of vertices is  and the set of edges is .
+
+The order of a graph is the number of vertices it contains, which is 7 here in the example. The size of the graph is the number of edges, which is 9 in this example.
+
+As you can see, this is a simple, effective way to visualize a graph. But it might also be misleading, because the creation of a figure like this requires you to make arbitrary decisions about the coordinates of vertices and the forms of lines.
+
+This can be seen in the following example figure, which shows two graphs that appear to be different. However, these two graphs are identical in the sense that they have exactly the same set of vertices and the same set of edges.
+
+```{r 2, echo=FALSE}
+
+```
+
+Graphs were first introduced by Euler in 1736. He was interested in formally proving that no one could walk around the city of Konigsberg and cross each of its bridges exactly one time. To prove this, he showed that starting and finishing at one point would require the graph to contain 0 or 2 land masses with an odd number of bridges. Since Konigsberg land masses all contained an odd number of bridges, this route was impossible.
+
+In some cases, edges can be directed, which means that a vertex  can be connected to a vertex , even if  is not connected to . In such cases, edges are made up of couples of vertices, such as, for example, . Couples are more informative than pairs because the order of vertices in the couple is meaningful. For example, the couple  is distinct from the couple  if  and  are distinct themselves, whereas the pair  and the pair  are identical. When using couples, graphs are known as digraphs (which stands for directed graphs).
+
+We will only consider graphs whose edges are pairs in this course, but it's worth pointing out that the algorithms presented here do also apply to digraphs.
+
+## Basic definitions
+
+As in the previous examples, it's preferable to index vertices from 1 to , which is the order of the graph. When vertices of the graph are indexed appropriately, an alternative way to represent a graph is to use a matrix.
+
+The adjacency matrix of a graph is a matrix with as many rows and columns as the order of the graph.
+The adjacency matrix is built by putting a 1 at line  and column  if  is an edge, and putting a 0 otherwise.
+
+Here's an example of a graph and its corresponding adjacency matrix:
+
+```{r}
+
+```
+
+You should note that the adjacency matrix of a graph is always symmetric (it is not necessarily the case when considering digraphs).
+
+Adjacency matrices can be generalized to take values other than 0s and 1s, which allows weighted graphs to be defined.
+
+Weighted graphs are particularly useful when edges represent distances or delays between vertices, because values in the adjacency matrix can be used to indicate the corresponding quantities.
+
+To take an example, a weighted graph can model the distances between major cities in the US, and connection weights can be used to represent these distances. As well as distances, weights can be used to represent occurrences, proximities, relationships, and so on.
+
+## Paths and geodesic distances
+
+A path is an ordered sequence of edges that are distinct from one other, and is obtained from a sequence of vertices by joining any two consecutive vertices in the corresponding edge. The two extreme vertices of the sequence are called the extremities of the path.
+
+Take a look at this graph:
+
+```{r}
+
+```
+
+In this example,  is a path, and we've obtained it from the vertex sequence .
+
+Paths are often confused with walks. A walk is a sequence of vertices, such that any two consecutive vertices form an edge in the graph. The difference is that, in a path, an edge cannot appear twice. For example,  in the previous graph is a walk, but the corresponding sequence  is not a path, because of the repetition of the edge .
+
+A cycle in a graph is a path in which the extremities are identical. For example, in the previous graph  is a cycle obtained from the sequence of vertices .
+
+The length of a path is the length of the sequence of edges. For weighted graphs, the length corresponds to the sum of the weights. If there exists at least one path linking two vertices  and , there exists a shortest one. Most of the following lessons will be spent learning how to find the shortest paths between two vertices in a graph.
+
+Finally, a graph is said to be connected if, for any two vertices there exists a path having these vertices as extremities. All the example graphs we've considered so far are connected. Here's one that's not connected (for example, observe that there is no path for which  and  are extremities):
+
+
+```{r}
+
+```
+
+## Standart Graphs
+
+Some graphs are very useful because they can appear in many situations. For example, we encounter trees all the time: in file systems, in genealogical graphs, in sport competitions where tournaments are often depicted as trees and so on.
+
+Trees are connected graphs that are cycle-free.
+
+```{r}
+
+```
+
+Some graphs are very useful because they can appear in many situations. For example, we encounter trees all the time: in file systems, in genealogical graphs, in sport competitions where tournaments are often depicted as trees and so on.
+
+Trees are connected graphs that are cycle-free.
+
+```{r}
+
+```
+
+Another example of a standard graph is the complete graph. A complete graph includes all possible edges, and is often a good choice to test the abilities or the computation time of an algorithm that operates on graphs.
+
+```{r}
+
+
+```
+
+Another example of a standard graph is the complete graph. A complete graph includes all possible edges, and is often a good choice to test the abilities or the computation time of an algorithm that operates on graphs.
+
+```{r}
+
+```
+
